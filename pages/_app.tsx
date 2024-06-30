@@ -1,45 +1,40 @@
-import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
-import type { AppProps } from 'next/app';
-
+import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider, CssBaseline, Button } from '@mui/material';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import {
-  arbitrum,
-  base,
-  mainnet,
-  optimism,
-  polygon,
-  sepolia,
-} from 'wagmi/chains';
-import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 
-const config = getDefaultConfig({
-  appName: 'RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
-  chains: [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    base,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
-  ],
-  ssr: true,
-});
+import { config } from '../config/wagmi';
+import { getTheme } from '../config/theme';
+import useLocalStorage from '../hooks/useLocalStorage'; // Adjust the path as needed
 
 const client = new QueryClient();
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={client}>
-        <RainbowKitProvider>
-          <Component {...pageProps} />
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
-  );
-}
+const App = ({ Component, pageProps }: AppProps) => {
+  const [themeMode, setThemeMode] = useLocalStorage<'light' | 'dark'>('themeMode', 'light');
+  const theme = getTheme(themeMode);
 
-export default MyApp;
+
+  const toggleTheme = () => {
+    setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={client}>
+          <RainbowKitProvider>
+            {/* <Button onClick={toggleTheme} variant="contained" color="primary">
+              Toggle to {themeMode === 'light' ? 'Dark' : 'Light'} Mode
+            </Button> */}
+            <Component {...pageProps} />
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
+    </ThemeProvider>
+  );
+};
+
+export default App;
