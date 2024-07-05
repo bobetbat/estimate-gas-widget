@@ -1,4 +1,5 @@
-import '@rainbow-me/rainbowkit/styles.css';
+// import '@rainbow-me/rainbowkit/styles.css';
+import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider, CssBaseline, Theme } from '@mui/material';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';

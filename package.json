@@ -1,6 +1,6 @@
 {
   "name": "estimate-gas-widget",
-  "version": "0.2.2",
+  "version": "0.2.11",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",
@@ -12,13 +12,16 @@
       "default": "./dist/index.modern.js"
     }
   },
+  "files": [
+    "dist/**/*"
+  ],
   "source": "./src/index.tsx",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bobetbat/estimate-gas-widget.git"
   },
   "scripts": {
-    "build": "microbundle",
+    "build": "microbundle --globals '@tanstack/react-query=@tanstack/react-query,@mui/material=@mui/material,@rainbow-me/rainbowkit=@rainbow-me/rainbowkit,wagmi/chains=wagmi/chains,wagmi/actions=wagmi/actions'",
     "dev": "microbundle watch"
   },
   "dependencies": {

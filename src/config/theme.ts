@@ -1,5 +1,4 @@
-import { createTheme, ThemeOptions } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { createTheme, ThemeOptions, colors } from '@mui/material';
 
 // Common settings for both themes
 const commonSettings: ThemeOptions = {
@@ -28,7 +27,7 @@ const lightThemeOptions: ThemeOptions = {
       main: '#ffb74d', // Warm orange
     },
     error: {
-      main: red.A200, // Lighter red
+      main: colors.red.A200, // Lighter red
     },
   },
   ...commonSettings,
@@ -46,7 +45,7 @@ const darkThemeOptions: ThemeOptions = {
       main: '#19857b', // Tealish green
     },
     error: {
-      main: red.A400, // Red
+      main: colors.red.A400, // Red
     },
   },
   ...commonSettings,
