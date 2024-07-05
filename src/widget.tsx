@@ -1,13 +1,12 @@
-import type { NextPage } from 'next';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Card, CardContent, Container, Grid } from '@mui/material';
-import { TransactionTypeSelector } from '../components/TxTypeSelector';
-import { GasPriceDisplay } from '../components/GasPriceDisplay';
-import { GasFeeCalculator } from '../components/GasFeeCalculator';
-import { useGasPrice } from '../hooks/useGasPrice';
+import { TransactionTypeSelector } from './components/TxTypeSelector';
+import { GasPriceDisplay } from './components/GasPriceDisplay';
+import { GasFeeCalculator } from './components/GasFeeCalculator';
+import { useGasPrice } from './hooks/useGasPrice';
 
-const Home: NextPage = () => {
+const Widget = () => {
   const { control, watch } = useForm();
   const gasLimit = watch('gasLimit');
   const gasPrices = useGasPrice()
@@ -38,4 +37,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Widget;

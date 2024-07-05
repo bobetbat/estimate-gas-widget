@@ -1,35 +1,34 @@
 import '@rainbow-me/rainbowkit/styles.css';
-import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider, CssBaseline, Button } from '@mui/material';
+import { ThemeProvider, CssBaseline, Theme } from '@mui/material';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { WagmiProvider } from 'wagmi';
+import { Config, WagmiProvider } from 'wagmi';
 
-import { config } from '../config/wagmi';
-import { getTheme } from '../config/theme';
-import useLocalStorage from '../hooks/useLocalStorage'; // Adjust the path as needed
+import { config } from './config/wagmi';
+import { getTheme } from './config/theme';
+import useLocalStorage from './hooks/useLocalStorage';
+import Widget from './widget';
 
 const client = new QueryClient();
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App: React.FC<{ theme?: Theme, config?: Config, client?: QueryClient }> = ({ theme: themeOverride, config: configOverride, client: clientOverride }) => {
   const [themeMode, setThemeMode] = useLocalStorage<'light' | 'dark'>('themeMode', 'light');
   const theme = getTheme(themeMode);
-
 
   const toggleTheme = () => {
     setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeOverride ?? theme}>
       <CssBaseline />
-      <WagmiProvider config={config}>
-        <QueryClientProvider client={client}>
+      <WagmiProvider config={configOverride ?? config}>
+        <QueryClientProvider client={clientOverride ?? client}>
           <RainbowKitProvider>
             {/* <Button onClick={toggleTheme} variant="contained" color="primary">
               Toggle to {themeMode === 'light' ? 'Dark' : 'Light'} Mode
             </Button> */}
-            <Component {...pageProps} />
+            <Widget />
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>

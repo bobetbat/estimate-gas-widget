@@ -1,12 +1,26 @@
 {
   "name": "estimate-gas-widget",
-  "private": true,
   "version": "0.1.0",
+  "type": "module",
+  "source": "./src/index.tsx",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bobetbat/estimate-gas-widget.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:microbundle": "microbundle --globals prop-types=propTypes",
+    "dev:microbundle": "microbundle watch"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -17,6 +31,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@rainbow-me/rainbowkit": "^2.1.2",
     "@tanstack/react-query": "^5.49.2",
+    "microbundle": "^0.15.1",
     "next": "^14.2.3",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
