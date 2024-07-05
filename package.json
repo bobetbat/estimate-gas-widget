@@ -2,25 +2,24 @@
   "name": "estimate-gas-widget",
   "version": "0.1.0",
   "type": "module",
-  "source": "./src/index.tsx",
-  "exports": {
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.modern.js"
-  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",
   "unpkg": "./dist/index.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.module.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.modern.js"
+    }
+  },
+  "source": "./src/index.tsx",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bobetbat/estimate-gas-widget.git"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "build:microbundle": "microbundle --globals prop-types=propTypes",
-    "dev:microbundle": "microbundle watch"
+    "build": "microbundle",
+    "dev": "microbundle watch"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -32,7 +31,6 @@
     "@rainbow-me/rainbowkit": "^2.1.2",
     "@tanstack/react-query": "^5.49.2",
     "microbundle": "^0.15.1",
-    "next": "^14.2.3",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-hook-form": "^7.52.0",
@@ -44,7 +42,6 @@
     "@types/node": "^18.19.3",
     "@types/react": "^18.3.0",
     "eslint": "^8.15.0",
-    "eslint-config-next": "^14.2.3",
     "typescript": "5.4.2"
   }
 }
