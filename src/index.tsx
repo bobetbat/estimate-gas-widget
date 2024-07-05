@@ -11,12 +11,8 @@ import Widget from './widget';
 const client = new QueryClient();
 
 const App: React.FC<{ theme?: Theme, config?: Config, client?: QueryClient }> = ({ theme: themeOverride, config: configOverride, client: clientOverride }) => {
-  const [themeMode, setThemeMode] = useLocalStorage<'light' | 'dark'>('themeMode', 'light');
+  const [themeMode] = useLocalStorage<'light' | 'dark'>('themeMode', 'light');
   const theme = getTheme(themeMode);
-
-  const toggleTheme = () => {
-    setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-  };
 
   return (
     <ThemeProvider theme={themeOverride ?? theme}>
