@@ -28,7 +28,7 @@ export const useGasPrice = () => {
           });
         }
       } catch (error) {
-        console.error('ErromaxFeePerGasr fetching gas prices:', error);
+        console.error('Error fetching gas prices:', error);
       }
     };
 

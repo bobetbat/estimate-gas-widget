@@ -1,29 +1,75 @@
-This is a [RainbowKit](https://rainbowkit.com) + [wagmi](https://wagmi.sh) + [Next.js](https://nextjs.org/) project bootstrapped with [`create-rainbowkit`](/packages/create-rainbowkit).
+Description
+The Estimate Gas Widget is a React-based component designed to help you calculate Ethereum gas fees effortlessly. It fetches real-time gas prices and displays them, allowing users to make informed decisions about their transactions. The widget is customizable with themes and configurations, making it adaptable to various applications.
 
-## Getting Started
+###Installation and Usage
+First things first, let's get this baby up and running. Clone the repo and install those juicy dependencies:
 
-First, run the development server:
-
-```bash
-npm run dev
+```
+npm i estimate-gas-widget
+// or
+yarn add estimate-gas-widget
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To use the widget in your Next.js project, add the following to your component:
+```
+import EstimateGasWidget from 'estimate-gas-widget';
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+const App = () => {
+  return (
+    <EstimateGasWidget />
+  );
+};
+```
 
-## Learn More
+###Configuration
+The widget is highly configurable. Here's how you can tweak the settings:
 
-To learn more about this stack, take a look at the following resources:
+# 1.Theme
+Widget supports light and dark modes, it gets themeMode key from local storage. Or alternatively its possible to pass mui theme to override to custom theme (keep in mind in that case you have to handle theme modes switch).
+```
+<EstimateGasWidget theme={customMuiTheme} />
+```
 
-- [RainbowKit Documentation](https://rainbowkit.com) - Learn how to customize your wallet connection flow.
-- [wagmi Documentation](https://wagmi.sh) - Learn how to interact with Ethereum.
-- [Next.js Documentation](https://nextjs.org/docs) - Learn how to build a Next.js application.
+# 2. Wagmi config
+Widget has default config, it can be changed by passing wagmi config (chains configured here)
+```
+import EstimateGasWidget from 'estimate-gas-widget';
+import { getDefaultConfig } from '@rainbow-me/rainbowkit'
+import { arbitrum, mainnet, optimism } from 'wagmi/chains'
 
-You can check out [the RainbowKit GitHub repository](https://github.com/rainbow-me/rainbowkit) - your feedback and contributions are welcome!
+const config = getDefaultConfig({
+  appName: 'Your Amazing App',
+  projectId: 'YOUR_PROJECT_ID',
+  chains:[
+    mainnet,
+    optimism,
+    arbitrum,
+  ],
+  ssr: true,
+});
 
-## Deploy on Vercel
+const App = () => {
+  return (
+    <EstimateGasWidget config={config} />
+  );
+};
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 3. Query client
+Query client can be overwritten as well
+```
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const client = new QueryClient();
 
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+const App = () => {
+  return (
+    <EstimateGasWidget client={client} />
+  );
+};
+```
+
+### Dependencies
+Here are the main dependencies used in this project:
+"react": "^18.3.0",
+"viem": "2.9.31",
+"wagmi": "^2.9.2"

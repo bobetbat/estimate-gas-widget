@@ -11,8 +11,6 @@ const Widget = () => {
   const gasLimit = watch('gasLimit');
   const gasPrices = useGasPrice()
 
-  console.log('gasPrices:', gasPrices)
-  console.log('gasLimit:', gasLimit)
   return (
     <Container>
       <Card>
