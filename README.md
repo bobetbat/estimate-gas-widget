@@ -1,5 +1,6 @@
 # Description
 The Estimate Gas Widget is a React-based component designed to help you calculate Ethereum gas fees effortlessly. It fetches real-time gas prices and displays them, allowing users to make informed decisions about their transactions. The widget is customizable with themes and configurations, making it adaptable to various applications.
+ - [demo](https://stately-alpaca-06ae07.netlify.app/)
 
 # Installation and Usage
 First things first, let's get this baby up and running. Clone the repo and install those juicy dependencies:
