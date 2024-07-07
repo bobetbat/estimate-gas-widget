@@ -1,19 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
     "lib": ["DOM", "ESNext"],
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "declaration": true,
-    "jsx": "react-jsx"
+    "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+    "target": "es5" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "commonjs" /* Specify what module code is generated. */,
+    "jsx": "react-jsx",
+    "outDir": "dist",
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "strict": true /* Enable all strict type-checking options. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["src"],
+  "include": ["src"], /* Include only the src directory */
   "exclude": ["node_modules", "dist"]
 }

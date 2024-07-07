@@ -1,24 +1,27 @@
 {
   "name": "estimate-gas-widget",
-  "version": "0.2.33",
+  "version": "0.2.35",
   "description": "React estimate gas widget",
   "author": "bobetbat",
   "license": "MIT",
-  "main": "transpile.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
-    "build:cjs": "tsc --project tsconfig.cjs.json",
-    "build:esm": "tsc --project tsconfig.esm.json",
-    "build": "npm run build:cjs && npm run build:esm",
+    
+    "build": "tsc",
     "prepare": "npm run build",
     "preversion": "npm test",
     "version": "npm run build && git add -A dist",
     "postversion": "git push && git push --tags"
   },
-  "files": [
-    "dist"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bobetbat/estimate-gas-widget.git"
@@ -28,18 +31,7 @@
   },
   "homepage": "https://github.com/yourusername/your-repo-name#readme",
   "peerDependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@fontsource/roboto": "^5.0.13",
-    "@mui/icons-material": "^5.15.21",
-    "@mui/material": "^5.15.21",
-    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
-    "@rainbow-me/rainbowkit": "^2.1.2",
-    "@tanstack/react-query": "^5.28.4",
     "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "react-hook-form": "^7.52.0",
-    "styled-components": "^6.1.11",
     "viem": "2.9.31",
     "wagmi": "^2.9.2"
   },
@@ -57,7 +49,7 @@
     "react-hook-form": "^7.52.0",
     "styled-components": "^6.1.11",
     "viem": "2.9.31",
-    "wagmi": "^2.9.2",
+    "wagmi": "^2.9.2"
   },
   "devDependencies": {
     "@types/node": "^18.19.3",
