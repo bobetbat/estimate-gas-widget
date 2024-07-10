@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { formatUnits } from 'viem';
 import { config } from '../config/wagmi';
-import { estimateFeesPerGas,estimateMaxPriorityFeePerGas } from 'wagmi/actions';
+import { estimateFeesPerGas } from 'wagmi/actions';
 
 export interface GasPrices {
   low: bigint;

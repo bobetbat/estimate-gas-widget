@@ -7,15 +7,15 @@ interface GasPriceDisplayProps {
   gasPrices: GasPrices | undefined;
 }
 
-const formatGasPrice = (price: bigint) => `${formatUnits(price, 9)} Gwei`;
+const formatGasPrice = (price: bigint) => `${parseFloat(formatUnits(price, 9)).toFixed(4)} Gwei`;
 
 export const GasPriceDisplay: React.FC<GasPriceDisplayProps> = ({ gasPrices }) => {
   if (!gasPrices) {
     return (
       <Box>
         <Typography variant="h6">Current Gas Prices</Typography>
-        <Skeleton width="60%" height={30} />
-        <Skeleton width="60%" height={30} />
+        <Skeleton width="70%" height={30} />
+        <Skeleton width="40%" height={30} />
         <Skeleton width="60%" height={30} />
       </Box>
     );

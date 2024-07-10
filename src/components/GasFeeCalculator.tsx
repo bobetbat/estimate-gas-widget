@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Table, TableBody, TableCell, TableHead, TableRow, Skeleton } from '@mui/material';
+import { Table, TableBody, TableCell, TableHead, TableRow, Skeleton } from '@mui/material';
 import { formatUnits } from 'viem';
 import { useEthPrice } from '../hooks/useEthPrice';
 import { GasPrices } from '../hooks/useGasPrice';
@@ -23,7 +23,6 @@ const calculateFees = (gasPriceInWei: bigint, ethPrice: number, gasLimit: number
 const GasFeeRow: React.FC<{ level: string, gasPrice: bigint, fees: Fees }> = ({ level, gasPrice, fees }) => (
   <TableRow>
     <TableCell>{level}</TableCell>
-    <TableCell>{formatUnits(gasPrice, 9)} Gwei</TableCell>
     <TableCell>{fees.eth} ETH</TableCell>
     <TableCell>${fees.usd} USD</TableCell>
   </TableRow>
@@ -32,7 +31,6 @@ const GasFeeRow: React.FC<{ level: string, gasPrice: bigint, fees: Fees }> = ({ 
 const LoadingRow: React.FC = () => (
   <TableRow>
     <TableCell><Skeleton width="80%" /></TableCell>
-    <TableCell><Skeleton width="60%" /></TableCell>
     <TableCell><Skeleton width="60%" /></TableCell>
     <TableCell><Skeleton width="60%" /></TableCell>
   </TableRow>
@@ -81,7 +79,6 @@ export const GasFeeCalculator: React.FC<GasFeeCalculatorProps> = ({ gasLimit, ga
       <TableHead>
         <TableRow>
           <TableCell>Level</TableCell>
-          <TableCell>Gas Price (Gwei)</TableCell>
           <TableCell>Fee (ETH)</TableCell>
           <TableCell>Fee (USD)</TableCell>
         </TableRow>
