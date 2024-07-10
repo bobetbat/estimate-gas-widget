@@ -15,7 +15,6 @@ export const useGasPrice = () => {
     const fetchGasPrices = async () => {
       try {
         const feesPerGas = await estimateFeesPerGas(config);
-        console.log('feesPerGas', feesPerGas)
         const maxFeePerGas = BigInt(feesPerGas.maxFeePerGas);
         const priorityFeePerGas = BigInt(feesPerGas.maxPriorityFeePerGas);
         if (maxFeePerGas && priorityFeePerGas) {

@@ -1,6 +1,6 @@
 {
   "name": "estimate-gas-widget",
-  "version": "0.4.1",
+  "version": "0.4.14",
   "description": "React estimate gas widget",
   "author": "bobetbat",
   "license": "MIT",
@@ -21,9 +21,9 @@
     "url": "git+https://github.com/bobetbat/estimate-gas-widget.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/your-repo-name/issues"
+    "url": "https://github.com/bobetbat/estimate-gas-widget/issues"
   },
-  "homepage": "https://github.com/yourusername/your-repo-name#readme",
+  "homepage": "https://github.com/bobetbat/estimate-gas-widget#readme",
   "peerDependencies": {
     "react": "^18.3.0",
     "viem": "2.9.31",

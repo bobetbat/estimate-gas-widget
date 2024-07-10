@@ -65,14 +65,12 @@ export const GasFeeCalculator: React.FC<GasFeeCalculatorProps> = ({ gasLimit, ga
   });
   useEffect(() => {
     if (!gasLimit || !gasPrices || ethPrice === undefined) return;
-
     setFees({
       low: calculateFees(gasPrices.low, ethPrice, gasLimit),
       medium: calculateFees(gasPrices.medium, ethPrice, gasLimit),
       high: calculateFees(gasPrices.high, ethPrice, gasLimit),
     });
   }, [gasLimit, gasPrices, ethPrice]);
-
 
   return (
     <Table>

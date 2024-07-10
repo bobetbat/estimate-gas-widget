@@ -1,5 +1,10 @@
 import { createTheme, ThemeOptions, colors } from '@mui/material';
 
+export enum ThemeMode {
+  Light = 'light',
+  Dark = 'dark'
+}
+
 // Common settings for both themes
 const commonSettings: ThemeOptions = {
   components: {
@@ -52,36 +57,6 @@ const commonSettings: ThemeOptions = {
         },
       },
     },
-    MuiSelect: {
-      styleOverrides: {
-        select: {
-          padding: '8px', // Adjust padding for better alignment
-          borderColor: '#ccc', // Subtle border color
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Light shadow
-          textAlign: 'left', // Align placeholder text
-          '@media (max-width:600px)': {
-            padding: '12px', // Adjust padding for better alignment
-          },
-        },
-        icon: {
-          right: '12px', // Adjust icon position for alignment
-          '@media (max-width:600px)': {
-            right: '8px', // Adjust icon position for small screens
-          },
-        },
-      },
-    },
-    MuiFormControl: {
-      styleOverrides: {
-        root: {
-          borderRadius: '16px', // Bubbly corners
-          padding: '8px', // Default padding
-          '@media (max-width:600px)': {
-            padding: '4px', // Reduced padding for small screens
-          },
-        },
-      },
-    },
     MuiTypography: {
       styleOverrides: {
         root: {
@@ -122,7 +97,7 @@ const lightThemeOptions: ThemeOptions = {
       secondary: '#555', // Dark gray secondary text
       disabled: '#aaa', // Light gray disabled text
     },
-    divider: '#e0e0e0', // Light gray dividers
+    divider: '#555', // Dark gray dividers
     action: {
       active: '#007bff', // Blue active icon
       hover: '#f5f5f5', // Light gray hover
@@ -154,12 +129,12 @@ const darkThemeOptions: ThemeOptions = {
       main: colors.red.A400, // Red
       contrastText: '#fff', // White text
     },
+    divider: '#e0e0e0', // Light gray dividers
     text: {
       primary: '#fff', // White primary text
       secondary: '#aaa', // Light gray secondary text
       disabled: '#555', // Dark gray disabled text
     },
-    divider: '#555', // Dark gray dividers
     action: {
       active: '#19857b', // Tealish green active icon
       hover: '#424242', // Darker hover
@@ -171,5 +146,5 @@ const darkThemeOptions: ThemeOptions = {
   ...commonSettings,
 };
 
-export const getTheme = (mode: 'light' | 'dark' | null) =>
-  createTheme(mode === 'light' ? lightThemeOptions : darkThemeOptions);
+export const getTheme = (mode: ThemeMode | null) =>
+  createTheme(mode === ThemeMode.Light ? lightThemeOptions : darkThemeOptions);
