@@ -1,7 +1,7 @@
 import React from 'react';
-import { Control, Controller, FieldValues } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { MenuItem, Select, FormControl, InputLabel, useMediaQuery } from '@mui/material';
-
+import { FormValues } from './Widget';
 
 const transactionTypes = [
   { type: 'ETH Transfer', gasLimit: 21000 },
@@ -10,7 +10,7 @@ const transactionTypes = [
 ];
 
 export const TransactionTypeSelector: React.FC<{
-  control: Control<FieldValues, any>
+  control: Control<FormValues, any>
 }> = ({ control }) => {
   const small = useMediaQuery('(max-width:600px)');
   return (
@@ -19,7 +19,6 @@ export const TransactionTypeSelector: React.FC<{
       <Controller
         name="gasLimit"
         control={control}
-        defaultValue=""
         render={({ field }) => (
           <Select {...field} label="Transaction Type">
             {transactionTypes.map((transaction, index) => (

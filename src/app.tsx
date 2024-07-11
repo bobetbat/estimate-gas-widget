@@ -6,7 +6,7 @@ import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { Config, WagmiProvider } from 'wagmi';
 import { config } from './config/wagmi';
 import { getTheme, ThemeMode } from './config/theme';
-import Widget from './widget';
+import { Widget } from './components/Widget';
 
 const client = new QueryClient();
 

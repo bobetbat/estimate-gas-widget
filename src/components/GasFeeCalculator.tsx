@@ -102,6 +102,10 @@ export const GasFeeCalculator: React.FC<GasFeeCalculatorProps> = ({ gasLimit, ga
     });
   }, [gasLimit, gasPrices, ethPrice]);
 
+  if (!gasLimit) {
+    return null
+  }
+
   return (
     <Table>
       <TableHead>

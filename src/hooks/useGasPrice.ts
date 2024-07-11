@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { config } from '../config/wagmi';
 import { estimateFeesPerGas } from 'wagmi/actions';
+import { ChainId } from '../components/Widget';
 
 export interface GasPrices {
   low: bigint;
@@ -9,7 +10,7 @@ export interface GasPrices {
 }
 
 export const useGasPrice = (
-  chainId: 1 | 11155111 | 10 | 42161 | undefined
+  chainId: ChainId
 ): [GasPrices | undefined, boolean, string | null] => {
   const [gasPrices, setGasPrices] = useState<GasPrices>();
   const [loading, setLoading] = useState<boolean>(false);

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Control, Controller, FieldValues } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { MenuItem, Select, FormControl, InputLabel, useMediaQuery } from '@mui/material';
 import { useSwitchChain } from 'wagmi';
+import { FormValues } from './Widget';
 
 export const ChainSelector: React.FC<{
-  control: Control<FieldValues, any>
+  control: Control<FormValues, any>
 }> = ({ control }) => {
   const { chains, switchChain } = useSwitchChain();
   const small = useMediaQuery('(max-width:600px)');
@@ -21,7 +22,7 @@ export const ChainSelector: React.FC<{
             {...field}
             label="Network"
             onChange={(event) => {
-              const chainId = event.target.value;
+              const chainId = Number(event.target.value ?? 1);
               switchChain({ chainId });
               field.onChange(chainId);
             }}
