@@ -8,13 +8,19 @@ export interface GasPrices {
   high: bigint;
 }
 
-export const useGasPrice = () => {
+export const useGasPrice = (
+  chainId: 1 | 11155111 | 10 | 42161 | undefined
+): [GasPrices | undefined, boolean, string | null] => {
   const [gasPrices, setGasPrices] = useState<GasPrices>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchGasPrices = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const feesPerGas = await estimateFeesPerGas(config);
+        const feesPerGas = await estimateFeesPerGas(config, { chainId: chainId as 1 | 11155111 | 10 | 42161 | undefined });
         const maxFeePerGas = BigInt(feesPerGas.maxFeePerGas);
         const priorityFeePerGas = BigInt(feesPerGas.maxPriorityFeePerGas);
         if (maxFeePerGas && priorityFeePerGas) {
@@ -25,18 +31,25 @@ export const useGasPrice = () => {
             high: maxFeePerGas + priorityFeePerGas * BigInt(2),
           });
         }
+        console.log('chainId', chainId)
+        console.log('feesPerGas', feesPerGas)
       } catch (error) {
         console.error('Error fetching gas prices:', error);
+        setError('Failed to fetch gas prices');
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchGasPrices(); // Fetch immediately on mount
+    if (chainId) {
+      fetchGasPrices(); // Fetch immediately on chain change
 
-    const interval = setInterval(fetchGasPrices, 60000); // Fetch every 60 seconds
+      const interval = setInterval(fetchGasPrices, 60000); // Fetch every 60 seconds
 
-    // Clear interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
+      // Clear interval on component unmount or chain change
+      return () => clearInterval(interval);
+    }
+  }, [chainId]);
 
-  return gasPrices;
+  return [gasPrices, loading, error];
 };

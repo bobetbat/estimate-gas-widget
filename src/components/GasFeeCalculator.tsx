@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableRow, Skeleton } from '@mui/material';
+import { Table, TableBody, TableCell, TableHead, TableRow, Skeleton, Alert } from '@mui/material';
 import { formatUnits } from 'viem';
 import { useEthPrice } from '../hooks/useEthPrice';
 import { GasPrices } from '../hooks/useGasPrice';
@@ -12,6 +12,8 @@ interface Fees {
 interface GasFeeCalculatorProps {
   gasPrices: GasPrices | undefined;
   gasLimit: number;
+  loading: boolean;
+  error: string | null;
 }
 
 const calculateFees = (gasPriceInWei: bigint, ethPrice: number, gasLimit: number): Fees => {
@@ -36,14 +38,40 @@ const LoadingRow: React.FC = () => (
   </TableRow>
 );
 
-const renderRows = (gasPrices: GasPrices | undefined, ethPrice: number | undefined, fees: Record<string, Fees>) => {
-  if (!gasPrices || ethPrice === undefined) {
+const renderRows = (
+  gasPrices: GasPrices | undefined,
+  ethPrice: number | undefined,
+  fees: Record<string, Fees>,
+  gasLoading: boolean,
+  gasError: string | null
+) => {
+  if (gasLoading) {
     return (
       <>
         <LoadingRow />
         <LoadingRow />
         <LoadingRow />
       </>
+    );
+  }
+
+  if (gasError) {
+    return (
+      <TableRow>
+        <TableCell colSpan={3}>
+          <Alert severity="error">{gasError}</Alert>
+        </TableCell>
+      </TableRow>
+    );
+  }
+
+  if (!gasPrices || ethPrice === undefined) {
+    return (
+      <TableRow>
+        <TableCell colSpan={3}>
+          <Alert severity="error">Could not get gas price or eth price</Alert>
+        </TableCell>
+      </TableRow>
     );
   }
 
@@ -56,14 +84,16 @@ const renderRows = (gasPrices: GasPrices | undefined, ethPrice: number | undefin
   );
 };
 
-export const GasFeeCalculator: React.FC<GasFeeCalculatorProps> = ({ gasLimit, gasPrices }) => {
-  const ethPrice = useEthPrice();
+export const GasFeeCalculator: React.FC<GasFeeCalculatorProps> = ({ gasLimit, gasPrices, loading, error }) => {
+  const [ethPrice, ethLoading, ethError] = useEthPrice();
   const [fees, setFees] = useState<{ low: Fees, medium: Fees, high: Fees }>({
     low: { eth: '0', usd: '0' },
     medium: { eth: '0', usd: '0' },
     high: { eth: '0', usd: '0' },
   });
+
   useEffect(() => {
+    console.log('GAS PRICES:', gasPrices)
     if (!gasLimit || !gasPrices || ethPrice === undefined) return;
     setFees({
       low: calculateFees(gasPrices.low, ethPrice, gasLimit),
@@ -82,7 +112,7 @@ export const GasFeeCalculator: React.FC<GasFeeCalculatorProps> = ({ gasLimit, ga
         </TableRow>
       </TableHead>
       <TableBody>
-        {renderRows(gasPrices, ethPrice, fees)}
+        {renderRows(gasPrices, ethPrice, fees, loading || ethLoading, error || ethError)}
       </TableBody>
     </Table>
   );
